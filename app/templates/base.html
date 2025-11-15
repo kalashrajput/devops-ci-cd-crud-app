@@ -1,37 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>Flask CRUD App</title>
+    <title>CRUD Dashboard</title>
 
-    <!-- Bootstrap 5 - Latest -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap v5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         body {
-            background: #f7f8fc;
+            background: #f5f7fa;
         }
-        .card {
+        .navbar {
+            background: #2563eb !important;
+        }
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+        .card-custom {
             border-radius: 12px;
-            overflow: hidden;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.06);
         }
-        .container {
-            margin-top: 40px;
+        .badge-status {
+            padding: 6px 12px;
+            font-size: 12px;
         }
     </style>
 </head>
 
 <body>
 
-    {% include "header.html" %}
+<nav class="navbar navbar-dark px-4">
+    <a class="navbar-brand fw-bold" href="/"> CRUD Management </a>
+</nav>
 
-    <div class="container">
-        {% block content %}{% endblock %}
-    </div>
+<div class="container py-4">
+    {% block content %}{% endblock %}
+</div>
 
-    {% include "footer.html" %}
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
