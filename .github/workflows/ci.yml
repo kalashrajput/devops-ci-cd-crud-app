@@ -12,93 +12,16 @@ jobs:
 
     steps:
 
-    # STEP 1 — Checkout Code
     - name: Checkout Code
       uses: actions/checkout@v3
 
-    # STEP 2 — Setup Python
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: "3.9"
 
-    # STEP 3 — Install Dependencies
     - name: Install Dependencies
       run: pip install -r requirements.txt
 
-    # STEP 4 — Docker Build
     - name: Docker Build
       run: docker build -t flask-crud-app .
-
-    # ==========================================================
-    # 🎉 SUCCESS NOTIFICATION
-    # ==========================================================
-    - name: Send Success Email
-      if: success()
-      uses: dawidd6/action-send-mail@v3
-      with:
-        server_address: smtp.gmail.com
-        server_port: 587
-        username: ${{ secrets.EMAIL_USER }}
-        password: ${{ secrets.EMAIL_PASS }}
-        subject: "✔ SUCCESS — CI Pipeline Passed"
-        to: kalashrajput5725.com
-        from: ${{ secrets.EMAIL_USER }}
-        body: |
-          🎉 CI Pipeline Succeeded!
-
-          Project: flask-crud-app  
-          Status: SUCCESS ✔  
-          Branch: ${{ github.ref }}
-          Run ID: ${{ github.run_id }}
-
-          All stages passed successfully.
-
-    # ==========================================================
-    # ❌ FAILURE NOTIFICATION
-    # ==========================================================
-    - name: Send Failure Email
-      if: failure()
-      uses: dawidd6/action-send-mail@v3
-      with:
-        server_address: smtp.gmail.com
-        server_port: 587
-        username: ${{ secrets.EMAIL_USER }}
-        password: ${{ secrets.EMAIL_PASS }}
-        subject: "❌ FAILURE — CI Pipeline Failed"
-        to: kalashrajput5725.com
-        from: ${{ secrets.EMAIL_USER }}
-        body: |
-          ❌ CI Pipeline FAILED!
-
-          Project: flask-crud-app  
-          Status: FAILURE  
-          Branch: ${{ github.ref }}
-          Run ID: ${{ github.run_id }}
-
-          Check logs here:
-          https://github.com/${{ github.repository }}/actions
-
-    # ==========================================================
-    # ⚠ ALWAYS SEND SUMMARY (SUCCESS/FAILURE)
-    # ==========================================================
-    - name: Send Completion Summary
-      if: always()
-      uses: dawidd6/action-send-mail@v3
-      with:
-        server_address: smtp.gmail.com
-        server_port: 587
-        username: ${{ secrets.EMAIL_USER }}
-        password: ${{ secrets.EMAIL_PASS }}
-        subject: "ℹ Pipeline Completed — Status: ${{ job.status }}"
-        to: kalashrajput5725@gmail.com
-        from: ${{ secrets.EMAIL_USER }}
-        body: |
-          CI Pipeline finished running.
-
-          Final Status: ${{ job.status }}
-          Branch: ${{ github.ref }}
-          Run ID: ${{ github.run_id }}
-
-          Full logs:
-          https://github.com/${{ github.repository }}/actions
