@@ -1,52 +1,129 @@
-# Example Python Flask Crud
+# 🚀 Flask CRUD App | Dockerized + CI Pipeline (GitHub Actions)
 
- Simple example python flask crud app for sqlite.
- 
-## Screenshots
+A simple and clean **Flask CRUD web application** containerized using **Docker** and automated with a **GitHub Actions CI Pipeline**.  
+This project demonstrates the **core DevOps workflow**: version control → build automation → containerization → clean UI → working CRUD backend.
+
+---
+
+## 📌 Features
+
+### 🔹 CRUD (Create, Read, Update, Delete)
+- Add entries  
+- Edit entries  
+- Delete entries  
+- Toggle status (Active/Inactive)
+
+### 🔹 Modern UI
+- Responsive Bootstrap UI  
+- Clean card layout  
+- Beautiful action buttons  
+- Status badges  
+
+### 🔹 Docker Integration
+- Dockerfile included  
+- Build and run in container  
+- Port mapping for local testing  
+
+### 🔹 CI Pipeline (GitHub Actions)
+Automatically runs on each:
+- **Push** to main  
+- **Pull request**  
+Pipeline performs:
+- Checkout code  
+- Setup Python  
+- Install dependencies  
+- Build Docker image  
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Backend | Python (Flask) |
+| Database | SQLite |
+| UI | HTML, CSS, Bootstrap |
+| DevOps | GitHub Actions |
+| Container | Docker |
+| Version Control | Git & GitHub |
+
+---
+
+## 📸 Dashboard Preview
+
+![Dashboard](CRUD DASHBOARD.png)
+
+---
+
+## 🗂️ Project Structure
+
+flask-crud-app/
+│
+├── app/
+│ ├── crudapp.py
+│ ├── models.py
+│ ├── routes.py
+│ └── templates/
+│ ├── base.html
+│ ├── content.html
+│ ├── index.html
+│ └── update.html
+│
+├── Dockerfile
+├── requirements.txt
+├── README.md
+└── screenshots.png
+
+---
+
+## 🐳 Docker Usage
+
+### 🔹 Build image
+docker build -t flask-crud-app .
+
+🔹 Run container
+docker run -p 5000:5000 flask-crud-app
+
+🔹 Browser
+http://localhost:5000
 
 
-![image](screenshots.png)  
- 
- 
-### Installing (for linux)
+⚙️ GitHub Actions CI Pipeline
+name: CI Pipeline
 
-open the terminal and follow the white rabbit.
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Docker Build
+        run: docker build -t flask-crud-app .
 
 
-```
-git clone https://github.com/gurkanakdeniz/example-flask-crud.git
-```
-```
-cd example-flask-crud/
-```
-```
-python3 -m venv venv
-```
-```
-source venv/bin/activate
-```
-```
-pip install --upgrade pip
-```
-```
+▶️ How to Run Locally
+
+1️⃣ Install dependencies
 pip install -r requirements.txt
-```
-```
-export FLASK_APP=crudapp.py
-```
-```
-flask db init
-```
-```
-flask db migrate -m "entries table"
-```
-```
-flask db upgrade
-```
-```
-flask run
-```
 
-## License
+2️⃣ Run Flask app
+python crudapp.py
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+3️⃣ Open in browser
+http://localhost:5000
