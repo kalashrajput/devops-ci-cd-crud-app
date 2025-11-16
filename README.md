@@ -1,4 +1,4 @@
-# 🚀 Flask CRUD App | Dockerized + CI Pipeline (GitHub Actions)
+# Flask CRUD App | Dockerized + CI Pipeline
 
 A simple and clean **Flask CRUD web application** containerized using **Docker** and automated with a **GitHub Actions CI Pipeline**.  
 This project demonstrates the **core DevOps workflow**: version control → build automation → containerization → clean UI → working CRUD backend.
@@ -88,7 +88,7 @@ docker run -p 5000:5000 flask-crud-app
 http://localhost:5000
 
 
-⚙️ GitHub Actions CI Pipeline
+### GitHub Actions CI Pipeline
 name: CI Pipeline
 
 on:
