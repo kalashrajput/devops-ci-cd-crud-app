@@ -3,7 +3,7 @@
 
 <div class="dashboard-container">
 
-    <!-- Sidebar  -->
+    <!-- Sidebar -->
     <div class="sidebar">
         <h4 class="logo">🛠️ CRUD Management</h4>
         <a href="/" class="sidebar-item active">📄 Dashboard</a>
@@ -13,7 +13,7 @@
         <a href="#" class="sidebar-item logout-item">🚪 Logout</a>
     </div>
 
-    <!-- Main Content -->
+    <!-- MAIN CONTENT -->
     <div class="main-content">
 
         <!-- STATS CARDS -->
@@ -32,17 +32,16 @@
             </div>
         </div>
 
-        <!-- GRID LAYOUT -->
         <div class="row mt-4">
 
             <!-- LEFT FORM -->
             <div class="col-md-4 mb-4">
-                <div class="card p-4 shadow-lg">
-                    <h5 class="mb-3">➕ Add New Entry</h5>
+                <div class="card p-4">
+                    <h5>➕ Add New Entry</h5>
                     <form action="/add" method="post">
-                        <label class="form-label">Title</label>
+                        <label>Title</label>
                         <input class="form-control mb-3" type="text" name="title" required>
-                        <label class="form-label">Description</label>
+                        <label>Description</label>
                         <textarea class="form-control mb-3" rows="3" name="description" required></textarea>
                         <button class="btn btn-primary w-100 rounded-pill">Add Entry</button>
                     </form>
@@ -51,8 +50,8 @@
 
             <!-- RIGHT TABLE -->
             <div class="col-md-8">
-                <div class="card p-4 shadow-lg">
-                    <h5 class="mb-3">📋 Entries List</h5>
+                <div class="card p-4">
+                    <h5>📋 Entries List</h5>
                     <table class="table table-hover align-middle custom-table">
                         <thead>
                             <tr>
@@ -87,7 +86,6 @@
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

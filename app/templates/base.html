@@ -11,109 +11,95 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <style>
-        /* Light Theme (Default) */
+        /* 🌤 LIGHT MODE (DEFAULT) */
         body {
             font-family: 'Poppins', sans-serif;
             background: #f8f9ff;
             color: #333;
             min-height: 100vh;
         }
+
         .card {
             background: white;
             border-radius: 15px;
             box-shadow: 0 4px 14px rgba(0,0,0,0.08);
             transition: 0.3s;
         }
+
         .table thead {
             background: #2d3748;
             color: white;
         }
-        .actions-btn {
-            margin-right: 6px;
-        }
 
-        /* 🌓 DARK MODE */
+        .actions-btn { margin-right: 6px; }
+
+        /* 🌙 DARK MODE */
         body.dark-mode {
             background: #121212;
-            color: #e6e6e6;
+            color: #e6e6e6 !important;
         }
         body.dark-mode .card {
-            background: #1e1e1e;
+            background: #1e1e1e !important;
             box-shadow: none;
         }
-        body.dark-mode .table thead {
-            background: #343a40;
+
+        /* DARK MODE TABLE FIX */
+        body.dark-mode table {
+            background: #1e1e1e !important;
+            color: #fff !important;
+        }
+        body.dark-mode table thead {
+            background: #333 !important;
+            color: white !important;
+        }
+        body.dark-mode table tbody td {
+            color: white !important;
         }
 
-        /* Navbar */
+        /* DARK MODE STAT CARDS FIX */
+        body.dark-mode .stat-card {
+            background: #1e1e1e !important;
+            color: #e6e6e6 !important;
+            border: 1px solid #2c2c2c;
+        }
+
+        /* NAVBAR */
         .navbar {
             background: linear-gradient(90deg, #3b5998, #192f6a);
             color: white;
         }
 
-        /* Top Header */
-        .top-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-        }
+        /* SIDEBAR */
         .dashboard-container { display: flex; gap: 20px; }
-.sidebar {
-    width: 240px;
-    background: linear-gradient(180deg, #0077ff, #0050b3);
-    padding: 20px;
-    border-radius: 15px;
-    height: 100vh;
-    color: white;
-}
-.sidebar-item {
-    display: block;
-    padding: 10px 15px;
-    margin-bottom: 8px;
-    border-radius: 10px;
-    color: white;
-    text-decoration: none;
-    transition: 0.3s;
-}
-.sidebar-item:hover, .sidebar-item.active {
-    background: rgba(255,255,255,0.2);
-}
-.logout-item { background: rgba(255,0,0,0.3); }
+        .sidebar {
+            width: 240px;
+            background: linear-gradient(180deg, #0077ff, #0050b3);
+            padding: 20px;
+            border-radius: 15px;
+            height: 100vh;
+            color: white !important;
+        }
+        .sidebar-item {
+            display: block;
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .sidebar-item:hover, .sidebar-item.active {
+            background: rgba(255,255,255,0.2);
+        }
 
-.stat-card {
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-    font-weight: bold;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-}
-.custom-table td, .custom-table th { vertical-align: middle; }
-.actions-btn { margin-left: 5px; }
-/* 🌙 DARK MODE — STAT CARDS FIX */
-body.dark-mode .stat-card {
-    background: #1e1e1e !important;      /* dark card */
-    color: #e6e6e6 !important;           /* light text */
-    border: 1px solid #2c2c2c;           /* visible border */
-    box-shadow: 0 4px 10px rgba(255,255,255,0.05);
-}
-
-/* Light mode — keep as it is */
-.stat-card {
-    background: white;
-    color: #333;
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-}
-
-/* Make numbers bold & noticeable */
-.stat-card h2 {
-    font-weight: 700;
-    font-size: 2.5rem;
-}
-
+        /* DARK MODE SIDEBAR FIX */
+        body.dark-mode .sidebar {
+            background: linear-gradient(180deg, #1f1f1f, #111);
+            color: white;
+        }
+        body.dark-mode .sidebar-item {
+            color: white !important;
+        }
 
     </style>
 </head>
@@ -137,18 +123,16 @@ body.dark-mode .stat-card {
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- DARK MODE SCRIPT (FINAL) -->
+<!-- DARK MODE LOGIC -->
 <script>
     function toggleDarkMode() {
         const body = document.body;
         body.classList.toggle("dark-mode");
-        document.getElementById("darkModeBtn").innerHTML = 
+        document.getElementById("darkModeBtn").innerHTML =
             body.classList.contains("dark-mode") ? "☀ Light Mode" : "🌙 Dark Mode";
         localStorage.setItem("darkMode", body.classList.contains("dark-mode"));
     }
     document.getElementById("darkModeBtn").addEventListener("click", toggleDarkMode);
-
-    // Restore saved mode
     if (localStorage.getItem("darkMode") === "true") {
         document.body.classList.add("dark-mode");
         document.getElementById("darkModeBtn").innerHTML = "☀ Light Mode";
