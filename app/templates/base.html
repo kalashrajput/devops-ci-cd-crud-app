@@ -91,6 +91,29 @@
 }
 .custom-table td, .custom-table th { vertical-align: middle; }
 .actions-btn { margin-left: 5px; }
+/* 🌙 DARK MODE — STAT CARDS FIX */
+body.dark-mode .stat-card {
+    background: #1e1e1e !important;      /* dark card */
+    color: #e6e6e6 !important;           /* light text */
+    border: 1px solid #2c2c2c;           /* visible border */
+    box-shadow: 0 4px 10px rgba(255,255,255,0.05);
+}
+
+/* Light mode — keep as it is */
+.stat-card {
+    background: white;
+    color: #333;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Make numbers bold & noticeable */
+.stat-card h2 {
+    font-weight: 700;
+    font-size: 2.5rem;
+}
+
 
     </style>
 </head>
