@@ -2,32 +2,91 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CRUD Dashboard</title>
+    <title>DevOps Dashboard</title>
 
-    <!-- Bootstrap v5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <style>
-        body {
-            background: #f5f7fa;
-        }
-        .navbar {
-            background: #2563eb !important;
-        }
-        .page-title {
-            font-size: 32px;
-            font-weight: 700;
-            color: #1f2937;
-        }
-        .card-custom {
-            border-radius: 12px;
-            box-shadow: 0 4px 18px rgba(0,0,0,0.06);
-        }
-        .badge-status {
-            padding: 6px 12px;
-            font-size: 12px;
-        }
-    </style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(to right, #f0f4ff, #e6e9ff);
+        min-height: 100vh;
+    }
+
+    /* Navbar Styling */
+    .navbar {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Card Styling */
+    .card {
+        border-radius: 15px;
+        background: #ffffff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        transition: transform 0.2s ease-in-out;
+        border: none;
+    }
+    .card:hover {
+        transform: scale(1.01);
+    }
+
+    /* Table Styling */
+    table {
+        background: white;
+        border-radius: 10px;
+        border-collapse: separate !important;
+        border-spacing: 0 8px;
+    }
+    table tr:hover {
+        background-color: #f0f4ff;
+    }
+    .table thead {
+        background: #293241;
+        color: white;
+    }
+    .table td, .table th {
+        vertical-align: middle !important;
+    }
+
+    /* Buttons */
+    .btn {
+        border-radius: 25px !important;
+        font-weight: 500;
+        transition: 0.2s ease-in-out;
+    }
+    .btn:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+    }
+
+    /* Dashboard Title */
+    .page-title {
+        font-size: 28px;
+        font-weight: 600;
+        color: #1d3557;
+        letter-spacing: 0.5px;
+    }
+
+    /* Badges (Active/Inactive) */
+    .badge-status {
+        padding: 6px 10px;
+        font-size: 12px;
+        border-radius: 10px;
+    }
+
+    /* Table Shadow */
+    .table-container {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        border-radius: 12px;
+        padding: 10px;
+    }
+</style>
+
 </head>
 
 <body>
