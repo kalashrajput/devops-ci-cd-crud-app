@@ -8,85 +8,105 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <!-- Bootstrap -->
-    <link rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
     <style>
-    /* ===== BASIC ===== */
-    body {
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(to right, #eef2ff, #dde1ff);
-        transition: all 0.3s ease-in-out;
-    }
-    .navbar {
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    .card {
-        border-radius: 15px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    }
+        /* Light Theme (Default) */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f8f9ff;
+            color: #333;
+            min-height: 100vh;
+        }
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+        .table thead {
+            background: #2d3748;
+            color: white;
+        }
+        .actions-btn {
+            margin-right: 6px;
+        }
 
-    /* ===== HEADER ===== */
-    .top-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 20px 40px;
-        font-weight: 600;
-        color: #1c1c1c;
-    }
-    .top-header h2 {
-        font-size: 28px;
-        letter-spacing: 1px;
-    }
+        /* 🌓 DARK MODE */
+        body.dark-mode {
+            background: #121212;
+            color: #e6e6e6;
+        }
+        body.dark-mode .card {
+            background: #1e1e1e;
+            box-shadow: none;
+        }
+        body.dark-mode .table thead {
+            background: #343a40;
+        }
 
-    /* ===== BUTTON SPACING ===== */
-    .table .btn {
-        margin-right: 6px;
-        border-radius: 18px;
-        padding: 4px 10px;
-    }
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(90deg, #3b5998, #192f6a);
+            color: white;
+        }
 
-    /* ===== DARK MODE ===== */
-    body.dark-mode {
-        background: #1b1b1b;
-        color: #f4f4f4;
-    }
-    .dark-mode .card,
-    .dark-mode table {
-        background: #2a2a2a !important;
-        color: white !important;
-    }
-    .dark-mode h2,
-    .dark-mode h5,
-    .dark-mode label,
-    .dark-mode th,
-    .dark-mode td {
-        color: #e6e6e6 !important;
-    }
-    .dark-mode .navbar {
-        background: #222 !important;
-    }
-</style>
+        /* Top Header */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        .dashboard-container { display: flex; gap: 20px; }
+.sidebar {
+    width: 240px;
+    background: linear-gradient(180deg, #0077ff, #0050b3);
+    padding: 20px;
+    border-radius: 15px;
+    height: 100vh;
+    color: white;
+}
+.sidebar-item {
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.sidebar-item:hover, .sidebar-item.active {
+    background: rgba(255,255,255,0.2);
+}
+.logout-item { background: rgba(255,0,0,0.3); }
 
+.stat-card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+.custom-table td, .custom-table th { vertical-align: middle; }
+.actions-btn { margin-left: 5px; }
 
+    </style>
 </head>
 
 <body>
 
+<!-- NAVBAR -->
 <nav class="navbar navbar-dark px-4">
-    <a class="navbar-brand fw-bold" href="/"> CRUD Management </a>
-</nav>
+    <a class="navbar-brand fw-bold text-white" href="/">🔧 CRUD Management</a>
 
-<!-- Top Header -->
-<div class="top-header">
-    <h2>🔧 CRUD Management</h2>
-
-    <button id="darkModeToggle" class="btn btn-sm btn-secondary">
+    <button id="darkModeBtn" class="btn btn-sm btn-light">
         🌙 Dark Mode
     </button>
-</div>
+</nav>
 
-
+<!-- PAGE CONTENT -->
 <div class="container py-4">
     {% block content %}{% endblock %}
 </div>
@@ -94,22 +114,23 @@
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 
+<!-- DARK MODE SCRIPT (FINAL) -->
 <script>
-    const toggleBtn = document.getElementById("darkModeToggle");
-    toggleBtn.addEventListener("click", () => {
-        document.body.classList.toggle("dark-mode");
+    function toggleDarkMode() {
+        const body = document.body;
+        body.classList.toggle("dark-mode");
+        document.getElementById("darkModeBtn").innerHTML = 
+            body.classList.contains("dark-mode") ? "☀ Light Mode" : "🌙 Dark Mode";
+        localStorage.setItem("darkMode", body.classList.contains("dark-mode"));
+    }
+    document.getElementById("darkModeBtn").addEventListener("click", toggleDarkMode);
 
-        // Save user preference
-        localStorage.setItem("darkMode", 
-            document.body.classList.contains("dark-mode"));
-    });
-
-    // Apply saved mode
+    // Restore saved mode
     if (localStorage.getItem("darkMode") === "true") {
         document.body.classList.add("dark-mode");
+        document.getElementById("darkModeBtn").innerHTML = "☀ Light Mode";
     }
 </script>
-
 
 </body>
 </html>
