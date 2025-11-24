@@ -10,7 +10,6 @@
     <!-- Bootstrap -->
     <link rel="stylesheet"
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
     <style>
     body {
         font-family: 'Poppins', sans-serif;
@@ -85,6 +84,55 @@
         border-radius: 12px;
         padding: 10px;
     }
+    .dashboard-container {
+    display: flex;
+    gap: 20px;
+}
+
+.sidebar {
+    width: 230px;
+    min-height: 100vh;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.sidebar-item {
+    display: block;
+    padding: 12px;
+    margin: 6px 0;
+    background: #f5f7ff;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.sidebar-item.active, .sidebar-item:hover {
+    background: #3a86ff;
+    color: white;
+}
+
+.logo {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    flex: 1;
+    padding: 20px;
+    background: white;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.stats-container {
+    display: flex;
+    gap: 20px;
+}
+
 </style>
 
 </head>

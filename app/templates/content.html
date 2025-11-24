@@ -1,86 +1,102 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="container-fluid">
+<div class="dashboard-container">
 
-    <!-- PAGE HEADER -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="page-title fw-bold text-primary">📌 Task Dashboard</h2>
-        <a href="#" class="btn btn-primary px-4 disabled">+ Add New Entry</a>  <!-- just a fake button for UI -->
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h4 class="logo">🛠️ CRUD App</h4>
+        <a href="/" class="sidebar-item active">📄 Dashboard</a>
+        <a href="#" class="sidebar-item">👤 Profile</a>
+        <a href="#" class="sidebar-item">⚙ Settings</a>
+        <a href="#" class="sidebar-item">📦 Deployments</a>
+        <a href="#" class="sidebar-item">🚪 Logout</a>
     </div>
 
-    <div class="row">
+    <!-- Main Content -->
+    <div class="main-content">
 
-        <!-- LEFT: ADD FORM -->
-        <div class="col-md-5">
-            <div class="card shadow p-4" style="border-radius: 15px;">
-                <h5 class="mb-3 fw-bold text-secondary">➕ Add New Entry</h5>
-
-                <form action="/add" method="post">
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Title</label>
-                        <input class="form-control" type="text" name="title" placeholder="Enter Task Title" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Description</label>
-                        <textarea class="form-control" name="description" rows="4"
-                            placeholder="Enter Description" required></textarea>
-                    </div>
-
-                    <button class="btn btn-success w-100 fw-semibold">Submit</button>
-                </form>
+        <!-- Top Header Stats -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <h6>Total Entries</h6>
+                <h2>{{ entries|length }}</h2>
+            </div>
+            <div class="stat-card">
+                <h6>Active Entries</h6>
+                <h2>
+                    {% set active = entries | selectattr('status', 'equalto', True) | list %}
+                    {{ active|length }}
+                </h2>
+            </div>
+            <div class="stat-card">
+                <h6>Inactive Entries</h6>
+                <h2>{{ entries|length - active|length }}</h2>
             </div>
         </div>
 
-        <!-- RIGHT: TABLE -->
-        <div class="col-md-7">
-            <div class="card shadow p-4" style="border-radius: 15px;">
-                <h5 class="mb-3 fw-bold text-secondary">📋 Entries List</h5>
+        <div class="row mt-4">
 
-                <table class="table table-hover align-middle table-striped">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                            <th class="text-end">Actions</th>
-                        </tr>
-                    </thead>
+            <!-- LEFT FORM -->
+            <div class="col-md-4">
+                <div class="card p-4 shadow-sm">
+                    <h5 class="mb-3">➕ Add New Entry</h5>
+                    <form action="/add" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            <input class="form-control" type="text" name="title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" name="description" rows="3" required></textarea>
+                        </div>
+                        <button class="btn btn-success w-100 rounded-pill">Add Entry</button>
+                    </form>
+                </div>
+            </div>
 
-                    <tbody>
-                    {% for entry in entries %}
-                        <tr>
-                            <td>{{ entry.id }}</td>
-                            <td class="fw-semibold">{{ entry.title }}</td>
-                            <td>{{ entry.description }}</td>
+            <!-- RIGHT TABLE -->
+            <div class="col-md-8">
+                <div class="card p-4 shadow-sm">
+                    <h5 class="mb-3">📋 Entries List</h5>
 
-                            <!-- STATUS BADGE -->
-                            <td>
-                                {% if entry.status %}
-                                    <span class="badge bg-success">✔ Active</span>
-                                {% else %}
-                                    <span class="badge bg-secondary">⛔ Inactive</span>
-                                {% endif %}
-                            </td>
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entry in entries %}
+                            <tr>
+                                <td>{{ entry.id }}</td>
+                                <td class="fw-semibold">{{ entry.title }}</td>
+                                <td>{{ entry.description }}</td>
+                                <td>
+                                    {% if entry.status %}
+                                        <span class="badge bg-success">Active</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">Inactive</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-end">
+                                    <a href="/turn/{{ entry.id }}" class="btn btn-warning btn-sm">Toggle</a>
+                                    <a href="/update/{{ entry.id }}" class="btn btn-info btn-sm text-white">Edit</a>
+                                    <a href="/delete/{{ entry.id }}" class="btn btn-danger btn-sm">Delete</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
 
-                            <!-- ACTION BUTTONS -->
-                            <td class="text-end">
-                                <a href="/turn/{{ entry.id }}" class="btn btn-warning btn-sm">Toggle</a>
-                                <a href="/update/{{ entry.id }}" class="btn btn-info btn-sm text-white">Edit</a>
-                                <a href="/delete/{{ entry.id }}" class="btn btn-danger btn-sm">Delete</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-
+                </div>
             </div>
         </div>
-
     </div>
-
 </div>
 
 {% endblock %}
