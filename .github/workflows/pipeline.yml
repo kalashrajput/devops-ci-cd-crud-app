@@ -1,0 +1,63 @@
+name: Build Test and Package Pipeline
+
+on:
+    push:
+        branches: [main]
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        outputs:
+            build_status: ${{ steps.build-step.outputs.status }}
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - name: Simualte build
+              id: build-step
+              run: |
+                echo "Building the application "
+                sleep 2
+                echo "Build complete"
+                echo "status=success" >> $GITHUB_OUTPUT
+
+    test:
+        runs-on: ubuntu-latest
+        needs: build
+        timeout-minutes: 10
+        outputs:
+            test_status: ${{ steps.test-step.outputs.status }}
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - name: Check build status
+              run: echo " Build status was ${{ needs.build.outputs.build_status }} "
+
+            - name: Simulate test
+              id: test-step
+              run: |
+               echo "Running tests"
+               sleep 2
+               echo "Test complete"
+               echo "status=success" >> $GITHUB_OUTPUT
+        
+    package:
+        runs-on: ubuntu-latest
+        needs: test
+        if: needs.test.outputs.test_status == 'success'
+        timeout-minutes: 10
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - name: Simulate packaging
+              run: |
+                echo "Packaging complete"
+                sleep 2
+                echo "Package created succesfully"
+
+            - name: cleanup
+              if: always()
+              run: echo "Running cleanup regardless of pipeline result"
