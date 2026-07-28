@@ -1,0 +1,22 @@
+name: Runner Observe
+
+on: push
+
+jobs:
+    observe:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Current working directory
+              run: pwd
+        
+            - name: List files
+              run: ls -la
+
+            - name: Show hostname
+              run: hostname
+              
+            - name: Show current user
+              run: whoami
+              
+            - name: Show environment variables
+              run: env  
